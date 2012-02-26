@@ -1,0 +1,450 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DD80293B14FA583300B93F21 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD80293A14FA583300B93F21 /* UIKit.framework */; };
+		DD80293D14FA583300B93F21 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD80293C14FA583300B93F21 /* Foundation.framework */; };
+		DD80293F14FA583300B93F21 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD80293E14FA583300B93F21 /* CoreGraphics.framework */; };
+		DD80294114FA583300B93F21 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD80294014FA583300B93F21 /* CoreData.framework */; };
+		DD80294714FA583300B93F21 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DD80294514FA583300B93F21 /* InfoPlist.strings */; };
+		DD80294914FA583300B93F21 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DD80294814FA583300B93F21 /* main.m */; };
+		DD80294D14FA583300B93F21 /* vh1981AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DD80294C14FA583300B93F21 /* vh1981AppDelegate.m */; };
+		DD80295014FA583300B93F21 /* Alarmee.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DD80294E14FA583300B93F21 /* Alarmee.xcdatamodeld */; };
+		DD80295814FA583300B93F21 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD80295714FA583300B93F21 /* SenTestingKit.framework */; };
+		DD80295914FA583300B93F21 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD80293A14FA583300B93F21 /* UIKit.framework */; };
+		DD80295A14FA583300B93F21 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD80293C14FA583300B93F21 /* Foundation.framework */; };
+		DD80295B14FA583300B93F21 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD80294014FA583300B93F21 /* CoreData.framework */; };
+		DD80296314FA583300B93F21 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DD80296114FA583300B93F21 /* InfoPlist.strings */; };
+		DD80296614FA583300B93F21 /* AlarmeeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DD80296514FA583300B93F21 /* AlarmeeTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DD80295C14FA583300B93F21 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DD80292D14FA583300B93F21 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DD80293514FA583300B93F21;
+			remoteInfo = Alarmee;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		DD80293614FA583300B93F21 /* Alarmee.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Alarmee.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD80293A14FA583300B93F21 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		DD80293C14FA583300B93F21 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		DD80293E14FA583300B93F21 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		DD80294014FA583300B93F21 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		DD80294414FA583300B93F21 /* Alarmee-Info.plist */ = {isa = PBXFileReference; path = "Alarmee-Info.plist"; sourceTree = "<group>"; };
+		DD80294614FA583300B93F21 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DD80294814FA583300B93F21 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		DD80294A14FA583300B93F21 /* Alarmee-Prefix.pch */ = {isa = PBXFileReference; path = "Alarmee-Prefix.pch"; sourceTree = "<group>"; };
+		DD80294B14FA583300B93F21 /* vh1981AppDelegate.h */ = {isa = PBXFileReference; path = vh1981AppDelegate.h; sourceTree = "<group>"; };
+		DD80294C14FA583300B93F21 /* vh1981AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = vh1981AppDelegate.m; sourceTree = "<group>"; };
+		DD80294F14FA583300B93F21 /* Alarmee.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Alarmee.xcdatamodel; sourceTree = "<group>"; };
+		DD80295614FA583300B93F21 /* AlarmeeTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AlarmeeTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD80295714FA583300B93F21 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		DD80296014FA583300B93F21 /* AlarmeeTests-Info.plist */ = {isa = PBXFileReference; path = "AlarmeeTests-Info.plist"; sourceTree = "<group>"; };
+		DD80296214FA583300B93F21 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DD80296414FA583300B93F21 /* AlarmeeTests.h */ = {isa = PBXFileReference; path = AlarmeeTests.h; sourceTree = "<group>"; };
+		DD80296514FA583300B93F21 /* AlarmeeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlarmeeTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DD80293314FA583300B93F21 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD80293B14FA583300B93F21 /* UIKit.framework in Frameworks */,
+				DD80293D14FA583300B93F21 /* Foundation.framework in Frameworks */,
+				DD80293F14FA583300B93F21 /* CoreGraphics.framework in Frameworks */,
+				DD80294114FA583300B93F21 /* CoreData.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DD80295214FA583300B93F21 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD80295814FA583300B93F21 /* SenTestingKit.framework in Frameworks */,
+				DD80295914FA583300B93F21 /* UIKit.framework in Frameworks */,
+				DD80295A14FA583300B93F21 /* Foundation.framework in Frameworks */,
+				DD80295B14FA583300B93F21 /* CoreData.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DD80292B14FA583300B93F21 = {
+			isa = PBXGroup;
+			children = (
+				DD80294214FA583300B93F21 /* Alarmee */,
+				DD80295E14FA583300B93F21 /* AlarmeeTests */,
+				DD80293914FA583300B93F21 /* Frameworks */,
+				DD80293714FA583300B93F21 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DD80293714FA583300B93F21 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DD80293614FA583300B93F21 /* Alarmee.app */,
+				DD80295614FA583300B93F21 /* AlarmeeTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DD80293914FA583300B93F21 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DD80293A14FA583300B93F21 /* UIKit.framework */,
+				DD80293C14FA583300B93F21 /* Foundation.framework */,
+				DD80293E14FA583300B93F21 /* CoreGraphics.framework */,
+				DD80294014FA583300B93F21 /* CoreData.framework */,
+				DD80295714FA583300B93F21 /* SenTestingKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DD80294214FA583300B93F21 /* Alarmee */ = {
+			isa = PBXGroup;
+			children = (
+				DD80294B14FA583300B93F21 /* vh1981AppDelegate.h */,
+				DD80294C14FA583300B93F21 /* vh1981AppDelegate.m */,
+				DD80294E14FA583300B93F21 /* Alarmee.xcdatamodeld */,
+				DD80294314FA583300B93F21 /* Supporting Files */,
+			);
+			path = Alarmee;
+			sourceTree = "<group>";
+		};
+		DD80294314FA583300B93F21 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DD80294414FA583300B93F21 /* Alarmee-Info.plist */,
+				DD80294514FA583300B93F21 /* InfoPlist.strings */,
+				DD80294814FA583300B93F21 /* main.m */,
+				DD80294A14FA583300B93F21 /* Alarmee-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DD80295E14FA583300B93F21 /* AlarmeeTests */ = {
+			isa = PBXGroup;
+			children = (
+				DD80296414FA583300B93F21 /* AlarmeeTests.h */,
+				DD80296514FA583300B93F21 /* AlarmeeTests.m */,
+				DD80295F14FA583300B93F21 /* Supporting Files */,
+			);
+			path = AlarmeeTests;
+			sourceTree = "<group>";
+		};
+		DD80295F14FA583300B93F21 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DD80296014FA583300B93F21 /* AlarmeeTests-Info.plist */,
+				DD80296114FA583300B93F21 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DD80293514FA583300B93F21 /* Alarmee */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DD80296914FA583300B93F21 /* Build configuration list for PBXNativeTarget "Alarmee" */;
+			buildPhases = (
+				DD80293214FA583300B93F21 /* Sources */,
+				DD80293314FA583300B93F21 /* Frameworks */,
+				DD80293414FA583300B93F21 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Alarmee;
+			productName = Alarmee;
+			productReference = DD80293614FA583300B93F21 /* Alarmee.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DD80295514FA583300B93F21 /* AlarmeeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DD80296C14FA583300B93F21 /* Build configuration list for PBXNativeTarget "AlarmeeTests" */;
+			buildPhases = (
+				DD80295114FA583300B93F21 /* Sources */,
+				DD80295214FA583300B93F21 /* Frameworks */,
+				DD80295314FA583300B93F21 /* Resources */,
+				DD80295414FA583300B93F21 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DD80295D14FA583300B93F21 /* PBXTargetDependency */,
+			);
+			name = AlarmeeTests;
+			productName = AlarmeeTests;
+			productReference = DD80295614FA583300B93F21 /* AlarmeeTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DD80292D14FA583300B93F21 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+				ORGANIZATIONNAME = "Powerwave Interactive";
+			};
+			buildConfigurationList = DD80293014FA583300B93F21 /* Build configuration list for PBXProject "Alarmee" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = DD80292B14FA583300B93F21;
+			productRefGroup = DD80293714FA583300B93F21 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DD80293514FA583300B93F21 /* Alarmee */,
+				DD80295514FA583300B93F21 /* AlarmeeTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DD80293414FA583300B93F21 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD80294714FA583300B93F21 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DD80295314FA583300B93F21 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD80296314FA583300B93F21 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		DD80295414FA583300B93F21 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DD80293214FA583300B93F21 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD80294914FA583300B93F21 /* main.m in Sources */,
+				DD80294D14FA583300B93F21 /* vh1981AppDelegate.m in Sources */,
+				DD80295014FA583300B93F21 /* Alarmee.xcdatamodeld in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DD80295114FA583300B93F21 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD80296614FA583300B93F21 /* AlarmeeTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DD80295D14FA583300B93F21 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DD80293514FA583300B93F21 /* Alarmee */;
+			targetProxy = DD80295C14FA583300B93F21 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		DD80294514FA583300B93F21 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DD80294614FA583300B93F21 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		DD80296114FA583300B93F21 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DD80296214FA583300B93F21 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		DD80296714FA583300B93F21 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		DD80296814FA583300B93F21 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DD80296A14FA583300B93F21 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Alarmee/Alarmee-Prefix.pch";
+				INFOPLIST_FILE = "Alarmee/Alarmee-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		DD80296B14FA583300B93F21 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Alarmee/Alarmee-Prefix.pch";
+				INFOPLIST_FILE = "Alarmee/Alarmee-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		DD80296D14FA583300B93F21 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Alarmee.app/Alarmee";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Alarmee/Alarmee-Prefix.pch";
+				INFOPLIST_FILE = "AlarmeeTests/AlarmeeTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		DD80296E14FA583300B93F21 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Alarmee.app/Alarmee";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Alarmee/Alarmee-Prefix.pch";
+				INFOPLIST_FILE = "AlarmeeTests/AlarmeeTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DD80293014FA583300B93F21 /* Build configuration list for PBXProject "Alarmee" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DD80296714FA583300B93F21 /* Debug */,
+				DD80296814FA583300B93F21 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DD80296914FA583300B93F21 /* Build configuration list for PBXNativeTarget "Alarmee" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DD80296A14FA583300B93F21 /* Debug */,
+				DD80296B14FA583300B93F21 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		DD80296C14FA583300B93F21 /* Build configuration list for PBXNativeTarget "AlarmeeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DD80296D14FA583300B93F21 /* Debug */,
+				DD80296E14FA583300B93F21 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		DD80294E14FA583300B93F21 /* Alarmee.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				DD80294F14FA583300B93F21 /* Alarmee.xcdatamodel */,
+			);
+			currentVersion = DD80294F14FA583300B93F21 /* Alarmee.xcdatamodel */;
+			path = Alarmee.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = DD80292D14FA583300B93F21 /* Project object */;
+}
