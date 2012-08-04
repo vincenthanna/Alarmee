@@ -1,4 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="Test1.xcdatamodel" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <elements/>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1171" systemVersion="11E53" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Image" representedClassName="Image" syncable="YES">
+        <attribute name="image" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="key" attributeType="Integer 64" defaultValueString="0" syncable="YES" isSyncIdentityProperty="YES"/>
+        <relationship name="item_image" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Item" inverseName="images" inverseEntity="Item" syncable="YES"/>
+    </entity>
+    <entity name="Item" representedClassName="Item" syncable="YES">
+        <attribute name="date" attributeType="Date" syncable="YES"/>
+        <attribute name="key" attributeType="Integer 64" defaultValueString="0" syncable="YES" isSyncIdentityProperty="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="images" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Image" inverseName="item_image" inverseEntity="Image" syncable="YES"/>
+        <relationship name="texts" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Text" inverseName="item_text" inverseEntity="Text" syncable="YES"/>
+    </entity>
+    <entity name="Text" representedClassName="Text" syncable="YES">
+        <attribute name="key" attributeType="Integer 64" defaultValueString="0" syncable="YES" isSyncIdentityProperty="YES"/>
+        <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="item_text" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Item" inverseName="texts" inverseEntity="Item" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Image" positionX="-218" positionY="1" width="128" height="98"/>
+        <element name="Item" positionX="-9" positionY="-153" width="128" height="128"/>
+        <element name="Text" positionX="232" positionY="-18" width="128" height="98"/>
+    </elements>
 </model>

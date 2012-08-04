@@ -1,0 +1,14 @@
+/* 
+  Localizable.strings
+  Alarmee
+
+  Created by 연희 김 on 12. 8. 2..
+  Copyright (c) 2012년 Powerwave Interactive. All rights reserved.
+*/
+"Title" = "제목";
+
+"No Repeat" = "반복없음";
+"Daily" = "날마다";
+"Weekly" = "주마다";
+"Monthly" = "달마다";
+"Modify" = "수정";

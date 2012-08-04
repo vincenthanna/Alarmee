@@ -7,6 +7,7 @@
 //
 
 #import "vh1981AppDelegate.h"
+#import "db_access.h"
 
 @implementation vh1981AppDelegate
 
@@ -17,10 +18,32 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+    // 가장 최상위에 깔아놓는 Window를 생성한다.
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
+    
+    // root로 사용될 ViewController를 생성한다.
+    _viewController = [[itemsListViewController alloc]init];
+    _navigationController = [[UINavigationController alloc]initWithRootViewController:_viewController];
+
+    // viewController를 가장 최상에 넣는다.
+    [self.window addSubview:_navigationController.view];
+    
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+    // sqlite database 초기화
+    DBAccessHelper *dbHelper = [[DBAccessHelper alloc] init];
+    int ret = 0;
+    ret = [dbHelper init_db:0];
+    if (ret) {
+        NSLog(@"db init succeeded");
+    }
+    else {
+        NSLog(@"db init failed!");
+    }
+//    [dbHelper makeTestData];
+
     return YES;
 }
 

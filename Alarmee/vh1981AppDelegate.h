@@ -7,8 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "itemsListViewController.h"
+#import "ItemAddViewController.h"
 
-@interface vh1981AppDelegate : UIResponder <UIApplicationDelegate>
+@interface vh1981AppDelegate : UIResponder <UIApplicationDelegate> {
+    itemsListViewController* _viewController;
+    UINavigationController* _navigationController;
+}
 
 @property (strong, nonatomic) UIWindow *window;
 
