@@ -86,6 +86,14 @@
     
     NSLog(@"[%s]%d _textInputSet.count=%d", __func__,__LINE__, [_textInputSet count]);
     [_detailTableView reloadData];
+    
+    if (operatingMode == ItemViewMode_New) {
+        [_barButtonApply setTitle:NSLocalizedString(@"Add",nil)];
+    }
+    else{
+        [_barButtonApply setTitle:NSLocalizedString(@"Modify",nil)];
+    }
+    
     return [super isViewLoaded];
 }
 
@@ -186,6 +194,7 @@
     switch (indexPath.row) {
         case ROW_TITLE:
             [_textFieldTitle setText:_item.title];
+            [_textFieldTitle setPlaceholder:NSLocalizedString(@"Title",nil)];
             break;
         case ROW_TODO:
             [_textViewToDo setText:_item.todo];
@@ -417,7 +426,7 @@
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
-{ 
+{
     _item.repeat = row;
 }
 
@@ -427,10 +436,12 @@
     NSLog(@"[%s]%d", __func__,__LINE__);
     BOOL bRet;
     DBAccessHelper *dbHelper = [[DBAccessHelper alloc]init];
-    bRet = [dbHelper addNewItem:_item isExists:1];
+    int addMode = (operatingMode == ItemViewMode_New) ? 0 : 1;
+    bRet = [dbHelper addNewItem:_item isExists:addMode];
     if (bRet != YES) {
         NSLog(@"[%s]%d Fail!", __func__,__LINE__);
     }
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

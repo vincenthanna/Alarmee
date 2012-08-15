@@ -12,6 +12,7 @@
 		DD4210B915CAA4BC000E9C03 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DD4210BB15CAA4BC000E9C03 /* Localizable.strings */; };
 		DD53AB5315C8FF5400808CC0 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DD53AB5215C8FF5400808CC0 /* libsqlite3.0.dylib */; };
 		DD53AB5715C918DD00808CC0 /* db_access.m in Sources */ = {isa = PBXBuildFile; fileRef = DD53AB5615C918DD00808CC0 /* db_access.m */; };
+		DD6C171915CF556400F06F34 /* Schedule.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C171815CF556400F06F34 /* Schedule.m */; };
 		DD6CB0C614FCE847002E4FE0 /* itemsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6CB0C514FCE847002E4FE0 /* itemsListViewController.m */; };
 		DD6CB0CA14FD1C3F002E4FE0 /* itemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6CB0C914FD1C3F002E4FE0 /* itemViewController.m */; };
 		DD80293B14FA583300B93F21 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD80293A14FA583300B93F21 /* UIKit.framework */; };
@@ -53,6 +54,8 @@
 		DD53AB5215C8FF5400808CC0 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		DD53AB5515C918CC00808CC0 /* db_access.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = db_access.h; sourceTree = "<group>"; };
 		DD53AB5615C918DD00808CC0 /* db_access.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = db_access.m; sourceTree = "<group>"; };
+		DD6C171715CF556400F06F34 /* Schedule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Schedule.h; sourceTree = "<group>"; };
+		DD6C171815CF556400F06F34 /* Schedule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Schedule.m; sourceTree = "<group>"; };
 		DD6CB0C414FCE847002E4FE0 /* itemsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = itemsListViewController.h; sourceTree = "<group>"; };
 		DD6CB0C514FCE847002E4FE0 /* itemsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = itemsListViewController.m; sourceTree = "<group>"; };
 		DD6CB0C814FD1C3F002E4FE0 /* itemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = itemViewController.h; sourceTree = "<group>"; };
@@ -123,9 +126,19 @@
 			name = Database;
 			sourceTree = "<group>";
 		};
+		DD69F2DB15CD004E00729B91 /* Schedule */ = {
+			isa = PBXGroup;
+			children = (
+				DD6C171715CF556400F06F34 /* Schedule.h */,
+				DD6C171815CF556400F06F34 /* Schedule.m */,
+			);
+			name = Schedule;
+			sourceTree = "<group>";
+		};
 		DD80292B14FA583300B93F21 = {
 			isa = PBXGroup;
 			children = (
+				DD69F2DB15CD004E00729B91 /* Schedule */,
 				DD433E0F15C6671800A56759 /* DataModel */,
 				DD80294214FA583300B93F21 /* Alarmee */,
 				DD80295E14FA583300B93F21 /* AlarmeeTests */,
@@ -332,6 +345,7 @@
 				DD177C5C1535CC6500ABE790 /* ItemAddViewController.m in Sources */,
 				DD53AB5715C918DD00808CC0 /* db_access.m in Sources */,
 				DD4210AA15CA1838000E9C03 /* Item.m in Sources */,
+				DD6C171915CF556400F06F34 /* Schedule.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

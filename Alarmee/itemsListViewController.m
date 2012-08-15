@@ -12,6 +12,7 @@
 #import "ItemAddViewController.h"
 #import "Item.h"
 #import "db_access.h"
+#import "Schedule.h"
 
 @implementation itemsListViewController
 
@@ -80,11 +81,19 @@
 -(void)loadData {
     _itemsArray = [self getAllItems];
     [_itemListTableView reloadData];
+    
+    Schedule* sched = [[Schedule alloc]init];
+    sched._items = _itemsArray;
+    [sched schedule];
 }
 
 - (void)addEntityViewOpen
 {
-    [self.navigationController pushViewController:_itemAddViewController animated:YES];
+//    [self.navigationController pushViewController:_itemAddViewController animated:YES];
+    [_itemViewController loadData:[[Item alloc]init]];
+    [_itemViewController setOperatingMode:ItemViewMode_New];
+    [self.navigationController pushViewController:_itemViewController animated:YES];
+
 }
 
 - (void)editEntityViewOpen
@@ -184,7 +193,7 @@
                 
                 Item* item = [[Item alloc]init];
                 
-                item.id = sqlite3_column_int(selectStatement, 0);
+                item.identifier = sqlite3_column_int(selectStatement, 0);
                 item.title = [NSString stringWithUTF8String:(char *)sqlite3_column_text(selectStatement, 1) ];
                 item.todo = [NSString stringWithUTF8String:(char *)sqlite3_column_text(selectStatement, 2) ];
                 

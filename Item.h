@@ -13,7 +13,7 @@ extern NSString *dateTextSaveFormat;
 extern NSString *dateTextFormal;
 @interface Item : NSObject {
     enum {REPEAT_NONE = 0, REPEAT_DAY, REPEAT_WEEK, REPEAT_MONTH, REPEAT_MAX};
-    unsigned int id;
+    unsigned int identifier;
     NSString* title;
     NSString* todo;
     NSDate* adddate;
@@ -21,7 +21,7 @@ extern NSString *dateTextFormal;
     unsigned int repeat;
 }
 
-@property (nonatomic) unsigned int id;
+@property (nonatomic) unsigned int identifier;
 @property (nonatomic, retain) NSString* title;
 @property (nonatomic, retain) NSString* todo;
 @property (nonatomic, retain) NSDate* adddate;

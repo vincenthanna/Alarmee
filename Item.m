@@ -13,12 +13,23 @@
 NSString *repeatModeStr[] = {@"a",@"b",@"c",@"d",@"e"};
 NSString *dateTextSaveFormat = @"yyyyMMddHHmmss";
 NSString *dateTextFormal = @"yyyy:MM:dd HH:mm:ss";
-@synthesize id;
+@synthesize identifier;
 @synthesize title;
 @synthesize todo;
 @synthesize adddate;
 @synthesize duedate;
 @synthesize repeat;
+
+-(id)init
+{
+    identifier = UINT_MAX;
+    title = @"";
+    todo = NSLocalizedString(@"ToDoTypeHere", nil);
+    adddate = [NSDate date];
+    duedate = [NSDate date];
+    repeat = REPEAT_NONE;
+    return [super init];
+}
 
 +(NSString*)date2Str:(NSDate*)date
 {

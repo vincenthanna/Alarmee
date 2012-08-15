@@ -8,6 +8,7 @@
 
 #import "vh1981AppDelegate.h"
 #import "db_access.h"
+#import "Schedule.h"
 
 @implementation vh1981AppDelegate
 
@@ -43,8 +44,101 @@
         NSLog(@"db init failed!");
     }
 //    [dbHelper makeTestData];
+    
+    {
+        //통지시간 정하기 
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+        
+        unsigned int unitFlags = 
+            NSYearCalendarUnit | 
+            NSMonthCalendarUnit | 
+            NSDayCalendarUnit |
+            NSHourCalendarUnit |
+            NSMinuteCalendarUnit |
+            NSWeekCalendarUnit |
+            NSWeekdayCalendarUnit |
+            NSWeekdayOrdinalCalendarUnit |
+            NSSecondCalendarUnit;
+        NSDateComponents *dateComps = [calendar components:unitFlags fromDate:[NSDate date]];
+        
+
+        /*
+        [dateComps setYear:2012];
+        [dateComps setMonth:8];
+        [dateComps setDay:11];
+        [dateComps setHour:16];
+        [dateComps setMinute:15];
+        [dateComps setSecond:0];
+         */
+
+//        
+        
+        NSDate* now = [dateComps date];
+
+        NSLog(@"%d:%02d:%02d (%d,%d,%d) %d %d", dateComps.year, dateComps.month, dateComps.day, dateComps.week, dateComps.weekday, dateComps.weekdayOrdinal, dateComps.month, dateComps.day);
+        
+        NSLog(@"%d:%02d:%02d (%d,%d,%d)", dateComps.year, dateComps.month, dateComps.day, dateComps.week, dateComps.weekday, dateComps.weekdayOrdinal);
+        NSDate *date;
+        date = [calendar dateFromComponents:dateComps];
+        NSLog(@"sec=%f", [date timeIntervalSince1970]);
+        [dateComps setYear:2013];
+        date = [calendar dateFromComponents:dateComps];
+        NSLog(@"sec=%f", [date timeIntervalSince1970]);
+        
+        NSRange range = [calendar rangeOfUnit:NSDayCalendarUnit inUnit:NSMonthCalendarUnit forDate:now];
+        
+        NSLog(@"range length=%d location=%d", range.length, range.location);
+        
+  
+/*
+//        NSDate *now = [[NSDate alloc]init];
+        if ([now compare:date] == NSOrderedDescending) {
+            NSLog(@"A %@ ===> %@",date, now);
+        }
+        else {
+            NSLog(@"B %@ ===> %@",now, date);
+        }
+        
+        UILocalNotification *localNotif = [[UILocalNotification alloc]init];
+        if (localNotif != nil) 
+        {
+            //통지시간 
+            localNotif.fireDate = date;
+            localNotif.timeZone = [NSTimeZone defaultTimeZone];
+            
+            //Payload
+            localNotif.alertBody = [NSString stringWithFormat:@"내부통지 %@",date];
+            localNotif.alertAction = @"상세보기";
+            localNotif.soundName = UILocalNotificationDefaultSoundName;
+            localNotif.applicationIconBadgeNumber = 1;
+            
+            //Custom Data
+            NSDictionary *infoDict = [NSDictionary dictionaryWithObject:@"mypage" forKey:@"page"];
+            localNotif.userInfo = infoDict;
+            
+            //Local Notification 등록
+            [[UIApplication sharedApplication] scheduleLocalNotification:localNotif];
+            
+        }
+ */
+
+
+    }
 
     return YES;
+}
+
+-(void) application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+{
+	application.applicationIconBadgeNumber = 0;
+	
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"알림" 
+													message:[NSString stringWithFormat:@"didReceiveLocalNotification %@",notification.alertBody] 
+												   delegate:nil 
+										  cancelButtonTitle:nil 
+										  otherButtonTitles:@"확인",nil];
+	[alert show];
+
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

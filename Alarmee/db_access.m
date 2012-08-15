@@ -76,7 +76,7 @@ exit:
     
     // make filepath
     NSString *filePath = [documentsDirectory stringByAppendingPathComponent:@DB_FILENAME];
-    NSLog(@"filePath=%@", filePath);
+    //NSLog(@"filePath=%@", filePath);
     return filePath;
 }
 
@@ -88,7 +88,7 @@ exit:
     
     // get db file path
     NSString *filePath = [self getDBFilePath];
-    NSLog(@"filePath=%@", filePath);
+    //NSLog(@"filePath=%@", filePath);
     if (sqlite3_open([filePath UTF8String], &database) != SQLITE_OK) {
         NSLog(@"[%s]%d db open fail!", __func__,__LINE__);
     }
@@ -134,7 +134,7 @@ exit:
         nextId = [self getNextId];
     }
     else {
-        nextId = item.id;
+        nextId = item.identifier;
     }
     if (nextId != -1) {
         NSLog(@"next id=%d",nextId);
