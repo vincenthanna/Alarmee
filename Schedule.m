@@ -11,10 +11,11 @@
 
 @implementation Schedule
 
-@synthesize _items;
-
--(NSDate*)recommend:(Item*)item _dateNow:(NSDate*)dateNow
++(NSDate*)recommend:(Item*)item _dateNow:(NSDate*)dateNow
 {
+    if (item.status == STAT_DONE)
+        return nil;
+    
     NSCalendar *calendar = [NSCalendar currentCalendar];
     unsigned int unitFlags = 
         NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit |
@@ -64,7 +65,25 @@
             NSDateComponents *dueDC = [calendar components:unitFlags fromDate:item.duedate];
             NSDateComponents *nowDC = [calendar components:unitFlags fromDate:now];
             
-            if (dueDC.weekday != nowDC.weekday) {
+            bool incSearchNeeded = false;
+            
+            if (dueDC.weekday != nowDC.weekday) { // 요일이 다름
+                incSearchNeeded = true;
+            }
+            else {
+                int duedateSec = dueDC.hour * 3600 + dueDC.minute * 60 + dueDC.second;
+                int nowSec = nowDC.hour * 3600 + nowDC.minute * 60 + nowDC.second;
+                if (duedateSec <= nowSec) { // 요일은 같은데 이미 시간이 넘어감.
+                    // now/nowDC에 하루를 더해서 요일번호가 달라지게 한 후에 search
+                    NSTimeInterval nowTime = [now timeIntervalSince1970];
+                    nowTime += (24 * 3600); // 하루 증가
+                    now = [[NSDate alloc] initWithTimeIntervalSince1970:nowTime];
+                    nowDC = [calendar components:unitFlags fromDate:now];
+                    incSearchNeeded = true;
+                }
+            }
+            
+            if (incSearchNeeded) {
                 //요일번호가 동일해질 때까지 하루씩 넘김
                 while(dueDC.weekday != nowDC.weekday) {
                     NSTimeInterval nowTime = [now timeIntervalSince1970];
@@ -81,40 +100,13 @@
                 return now;
             }
             else {
-                int duedateSec = dueDC.hour * 3600 + dueDC.minute * 60 + dueDC.second;
-                int nowSec = nowDC.hour * 3600 + nowDC.minute * 60 + nowDC.second;
-                if (duedateSec > nowSec) { //아직 예정시간을 지나지 않았다면
-                    // 시분초만 맞추고 제출
-                    nowDC = [calendar components:unitFlags fromDate:now];
-                    [nowDC setHour:dueDC.hour];
-                    [nowDC setMinute:dueDC.minute];
-                    [nowDC setSecond:dueDC.second];
-                    now = [calendar dateFromComponents:nowDC];
-                    return now;
-                }
-                else {
-                    
-                    // 하루를 더한다.(요일번호가 달라짐)
-                    NSTimeInterval nowTime = [now timeIntervalSince1970];
-                    nowTime += (24 * 3600); // 하루 증가
-                    now = [[NSDate alloc] initWithTimeIntervalSince1970:nowTime]; // sec->NSDate로 변환
-                    nowDC = [calendar components:unitFlags fromDate:now]; // NSDate->NSDateComponents로 변환
-                    
-                    //요일번호가 동일해질 때까지 하루씩 넘김
-                    while(dueDC.weekday != nowDC.weekday) {
-                        NSTimeInterval nowTime = [now timeIntervalSince1970];
-                        nowTime += (24 * 3600); // 하루 증가
-                        now = [[NSDate alloc] initWithTimeIntervalSince1970:nowTime]; // sec->NSDate로 변환
-                        nowDC = [calendar components:unitFlags fromDate:now]; // NSDate->NSDateComponents로 변환
-                    }
-                    //이제 요일번호가 같아졌다.(now에 시간이 들어있음)
-                    nowDC = [calendar components:unitFlags fromDate:now]; // NSDate->NSDateComponents로 변환
-                    [nowDC setHour:dueDC.hour];
-                    [nowDC setMinute:dueDC.minute];
-                    [nowDC setSecond:dueDC.second];
-                    now = [calendar dateFromComponents:nowDC];
-                    return now;
-                }
+                // 시분초만 맞추고 제출
+                nowDC = [calendar components:unitFlags fromDate:now];
+                [nowDC setHour:dueDC.hour];
+                [nowDC setMinute:dueDC.minute];
+                [nowDC setSecond:dueDC.second];
+                now = [calendar dateFromComponents:nowDC];
+                return now;             
             }
             break;
         }
@@ -155,12 +147,11 @@
                 }
                 
                 //다음달이 며칠까지 있는지 알아낸다.
-                NSLog(@"%d:%02d:%02d %02d:%02d:%02d", nowDC.year, nowDC.month, nowDC.day,
-                      nowDC.hour, nowDC.minute, nowDC.second);
+                //NSLog(@"%d:%02d:%02d %02d:%02d:%02d", nowDC.year, nowDC.month, nowDC.day, nowDC.hour, nowDC.minute, nowDC.second);
                 nowDC.day = 1; //날짜가 크면 rangeOfUnit가 잘못나오는경우가 있으므로 초기화한다.(아래에서 제대로 설정 해준다.)
                 now = [calendar dateFromComponents:nowDC];
                 NSRange dayRange = [calendar rangeOfUnit:NSDayCalendarUnit inUnit:NSMonthCalendarUnit forDate:now];
-                NSLog(@"month=%d max=%d", nowDC.month, dayRange.length);
+                //NSLog(@"month=%d max=%d", nowDC.month, dayRange.length);
                 if (dayRange.length >= dueDC.day) {
                     [nowDC setDay:dueDC.day];
                 }
@@ -186,14 +177,14 @@
     return nil;
 }
 
--(void)schedule
-{
-       //통지시간 정하기 
++(void)scheduleAll:(NSMutableArray*)items {
+    //통지시간 정하기 
     NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDate* date;
     
-    unsigned int unitFlags = 
-        NSYearCalendarUnit | 
-        NSMonthCalendarUnit | 
+    unsigned int unitFlags =
+        NSYearCalendarUnit |
+        NSMonthCalendarUnit |
         NSDayCalendarUnit |
         NSHourCalendarUnit |
         NSMinuteCalendarUnit |
@@ -202,16 +193,15 @@
         NSWeekdayOrdinalCalendarUnit |
         NSSecondCalendarUnit;
     
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
     
-    Item* scheduledItem = nil;
-    NSDate* scheduleDate = nil;
-    NSDate* date;
-    
-    NSLog(@"item count=%d", [_items count]);
-    
-    for (Item* item in _items) {
+    for (Item* item in items) {
+        
         NSDate *dateNow = [[NSDate alloc]init];
-        date = [self recommend:item _dateNow:dateNow];
+        date = [self recommend:item _dateNow:dateNow]; // 예약시간 예측
+        
+        // for debugging:
+        /*
         {
             NSDateComponents *dueDateComponents = [calendar components:unitFlags fromDate:item.duedate];
             NSDateComponents *scheduledDateComponents = [calendar components:unitFlags fromDate:date];
@@ -222,45 +212,150 @@
                   scheduledDateComponents.year, scheduledDateComponents.month, scheduledDateComponents.day,
                   scheduledDateComponents.hour, scheduledDateComponents.minute, scheduledDateComponents.second);
         }
+         */
+        
         if (date != nil) {
-            if (scheduledItem == nil) {
-                scheduleDate = date;
-                scheduledItem = item;
-            }
-            else {
-                if ([scheduleDate compare:date] == NSOrderedDescending) {
-                    scheduleDate = date;
-                    scheduledItem = item;
+            item.scheduledDate = [date copy];
+            
+            NSDateComponents* dateComponents = [calendar components:unitFlags fromDate:date];
+            
+            NSLog(@"TODO Schedule date : %d:%02d:%02d %02d:%02d:%02d repeat=%d",
+                  dateComponents.year, dateComponents.month, dateComponents.day,
+                  dateComponents.hour, dateComponents.minute, dateComponents.second,item.repeat);            
+            
+            UILocalNotification *localNotif = [[UILocalNotification alloc]init];
+            if (localNotif != nil) {
+                //통지시간 
+                localNotif.fireDate = date;
+                localNotif.timeZone = [NSTimeZone defaultTimeZone];
+                
+                //Payload
+                localNotif.alertBody = [NSString stringWithFormat:@"%@", item.title];
+                localNotif.alertAction = @"상세보기";
+                localNotif.soundName = UILocalNotificationDefaultSoundName;
+                localNotif.applicationIconBadgeNumber = 1;
+                
+                //반복설정
+                localNotif.repeatCalendar = calendar;
+                switch (item.repeat) {
+                    case REPEAT_NONE:
+                        localNotif.repeatInterval = 0;
+                        break;
+                    case REPEAT_DAY:
+                        localNotif.repeatInterval = NSDayCalendarUnit;
+                        break;
+                    case REPEAT_WEEK:
+                        localNotif.repeatInterval = NSWeekCalendarUnit;
+                        break;
+                    case REPEAT_MONTH:
+                        localNotif.repeatInterval = NSMonthCalendarUnit;
+                        break;
+                    default:
+                        NSAssert1(false, @"can't fall in here!", nil);
+                        break;
                 }
-            }
+                
+                //Custom Data
+                NSDictionary *infoDict = [item toDictionary];
+                localNotif.userInfo = infoDict;
+                
+                // Local Notification 등록
+                [[UIApplication sharedApplication] scheduleLocalNotification:localNotif];                
+            }                       
+        }
+        else {
+            NSLog(@"todo %@ is done.", item.todo);
+        }
+    }
+}
+
++(void)schedule:(Item*)item
+{
+    //통지시간 정하기
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDate* date;
+    
+    unsigned int unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit |
+        NSHourCalendarUnit | NSMinuteCalendarUnit | NSWeekCalendarUnit | NSWeekdayCalendarUnit |
+        NSWeekdayOrdinalCalendarUnit | NSSecondCalendarUnit;
+
+    // 이전에 스케줄되어 있는 것을 취소한다.
+    NSArray *schedulesArray = [[UIApplication sharedApplication] scheduledLocalNotifications];
+    
+    for (UILocalNotification *localNotification in schedulesArray) {
+        NSDictionary *dic = localNotification.userInfo;
+        NSNumber *number = [dic valueForKey:@"id"];
+        if (number.intValue == item.identifier) {
+            [[UIApplication sharedApplication] cancelLocalNotification:localNotification];
+            NSLog(@"[%s]%d localNotification canceled.", __func__,__LINE__);
         }
     }
     
-    NSDateComponents* dateComponents = [calendar components:unitFlags fromDate:scheduleDate];
-    NSLog(@"scheduled date : %d:%02d:%02d %02d:%02d:%02d",
-          dateComponents.year, dateComponents.month, dateComponents.day,
-          dateComponents.hour, dateComponents.minute, dateComponents.second);
+    NSDate *dateNow = [[NSDate alloc]init];
+    date = [self recommend:item _dateNow:dateNow]; // 다음 스케줄링 시간을 확인한다.
     
-    if (scheduledItem != nil) {
+
+    // for debugging:
+    {
+        NSDateComponents *dueDateComponents = [calendar components:unitFlags fromDate:item.duedate];
+        NSDateComponents *scheduledDateComponents = [calendar components:unitFlags fromDate:date];
+        
+        NSLog(@"Schedule : dueDate=%d:%02d:%02d %02d:%02d:%02d scheduledDate=%d:%02d:%02d %02d:%02d:%02d",
+              dueDateComponents.year, dueDateComponents.month, dueDateComponents.day,
+              dueDateComponents.hour, dueDateComponents.minute, dueDateComponents.second,
+              scheduledDateComponents.year, scheduledDateComponents.month, scheduledDateComponents.day,
+              scheduledDateComponents.hour, scheduledDateComponents.minute, scheduledDateComponents.second);
+    }
+
+    
+    if (date != nil) {
+        //다음 턴 scheduled Time을 저장한다.
+        item.scheduledDate = [date copy];
+        
+        NSDateComponents* dateComponents = [calendar components:unitFlags fromDate:date];
+        
+        NSLog(@"TODO Schedule date : %d:%02d:%02d %02d:%02d:%02d repeat=%d",
+              dateComponents.year, dateComponents.month, dateComponents.day,
+              dateComponents.hour, dateComponents.minute, dateComponents.second,item.repeat);
+        
         UILocalNotification *localNotif = [[UILocalNotification alloc]init];
         if (localNotif != nil) {
-            //통지시간 
-            localNotif.fireDate = scheduleDate;
+            //통지시간
+            localNotif.fireDate = date;
             localNotif.timeZone = [NSTimeZone defaultTimeZone];
             
             //Payload
-            localNotif.alertBody = [NSString stringWithFormat:@"%@", scheduledItem.title];
+            localNotif.alertBody = [NSString stringWithFormat:@"%@", item.title];
             localNotif.alertAction = @"상세보기";
             localNotif.soundName = UILocalNotificationDefaultSoundName;
             localNotif.applicationIconBadgeNumber = 1;
             
+            //반복설정
+            localNotif.repeatCalendar = calendar;
+            switch (item.repeat) {
+                case REPEAT_NONE:
+                    localNotif.repeatInterval = 0;
+                    break;
+                case REPEAT_DAY:
+                    localNotif.repeatInterval = NSDayCalendarUnit;
+                    break;
+                case REPEAT_WEEK:
+                    localNotif.repeatInterval = NSWeekCalendarUnit;
+                    break;
+                case REPEAT_MONTH:
+                    localNotif.repeatInterval = NSMonthCalendarUnit;
+                    break;
+                default:
+                    NSAssert1(false, @"can't fall in here!", nil);
+                    break;
+            }
+            
             //Custom Data
-            NSDictionary *infoDict = [NSDictionary dictionaryWithObject:@"mypage" forKey:@"page"];
+            NSDictionary *infoDict = [item toDictionary];
             localNotif.userInfo = infoDict;
             
             //Local Notification 등록
             [[UIApplication sharedApplication] scheduleLocalNotification:localNotif];
-            
         }
     }
 }

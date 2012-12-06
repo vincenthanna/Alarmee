@@ -11,12 +11,11 @@
 
 @interface Schedule : NSObject
 {
-    NSMutableArray *_items;
+
 }
 
--(NSDate*)recommend:(Item*)item _dateNow:(NSDate*)dateNow;
--(void)schedule;
-
-@property (nonatomic, retain)NSMutableArray *_items;
++(NSDate*)recommend:(Item*)item _dateNow:(NSDate*)dateNow;
++(void)scheduleAll:(NSMutableArray*)items;
++(void)schedule:(Item*)item;
 
 @end

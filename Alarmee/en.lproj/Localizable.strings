@@ -16,3 +16,18 @@
 
 "ToDoTypeHere" = "Type ToDo Here";
 "Add" = "Add";
+"Preference" = "Preference";
+"List" = "List";
+"Clear All" = "Clear All";
+"Clear all?" = "Clear all?";
+
+"Previous" = "Previous";
+"Next" = "Next";
+"Done" = "Done";
+"PleaseWriteTitle" = "Write title first";
+"Error" = "Error";
+"OK" = "OK";
+"Schedule" = "Schedule";
+"Saving..." = "Saving...";
+"SaveError" = "Can't save item";
+"JOB_DONE" = "ToDo Finished";

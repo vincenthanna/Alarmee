@@ -9,6 +9,7 @@
 #import "vh1981AppDelegate.h"
 #import "db_access.h"
 #import "Schedule.h"
+#import "itemsListViewController.h"
 
 @implementation vh1981AppDelegate
 
@@ -16,6 +17,7 @@
 @synthesize managedObjectContext = __managedObjectContext;
 @synthesize managedObjectModel = __managedObjectModel;
 @synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
+@synthesize dbHelper;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -27,6 +29,7 @@
     _viewController = [[itemsListViewController alloc]init];
     _navigationController = [[UINavigationController alloc]initWithRootViewController:_viewController];
 
+
     // viewController를 가장 최상에 넣는다.
     [self.window addSubview:_navigationController.view];
     
@@ -34,7 +37,7 @@
     [self.window makeKeyAndVisible];
     
     // sqlite database 초기화
-    DBAccessHelper *dbHelper = [[DBAccessHelper alloc] init];
+    dbHelper = [[DBAccessHelper alloc] init];
     int ret = 0;
     ret = [dbHelper init_db:0];
     if (ret) {
@@ -43,102 +46,55 @@
     else {
         NSLog(@"db init failed!");
     }
+    
 //    [dbHelper makeTestData];
     
-    {
-        //통지시간 정하기 
-        NSCalendar *calendar = [NSCalendar currentCalendar];
-        
-        unsigned int unitFlags = 
-            NSYearCalendarUnit | 
-            NSMonthCalendarUnit | 
-            NSDayCalendarUnit |
-            NSHourCalendarUnit |
-            NSMinuteCalendarUnit |
-            NSWeekCalendarUnit |
-            NSWeekdayCalendarUnit |
-            NSWeekdayOrdinalCalendarUnit |
-            NSSecondCalendarUnit;
-        NSDateComponents *dateComps = [calendar components:unitFlags fromDate:[NSDate date]];
-        
-
-        /*
-        [dateComps setYear:2012];
-        [dateComps setMonth:8];
-        [dateComps setDay:11];
-        [dateComps setHour:16];
-        [dateComps setMinute:15];
-        [dateComps setSecond:0];
-         */
-
-//        
-        
-        NSDate* now = [dateComps date];
-
-        NSLog(@"%d:%02d:%02d (%d,%d,%d) %d %d", dateComps.year, dateComps.month, dateComps.day, dateComps.week, dateComps.weekday, dateComps.weekdayOrdinal, dateComps.month, dateComps.day);
-        
-        NSLog(@"%d:%02d:%02d (%d,%d,%d)", dateComps.year, dateComps.month, dateComps.day, dateComps.week, dateComps.weekday, dateComps.weekdayOrdinal);
-        NSDate *date;
-        date = [calendar dateFromComponents:dateComps];
-        NSLog(@"sec=%f", [date timeIntervalSince1970]);
-        [dateComps setYear:2013];
-        date = [calendar dateFromComponents:dateComps];
-        NSLog(@"sec=%f", [date timeIntervalSince1970]);
-        
-        NSRange range = [calendar rangeOfUnit:NSDayCalendarUnit inUnit:NSMonthCalendarUnit forDate:now];
-        
-        NSLog(@"range length=%d location=%d", range.length, range.location);
-        
-  
-/*
-//        NSDate *now = [[NSDate alloc]init];
-        if ([now compare:date] == NSOrderedDescending) {
-            NSLog(@"A %@ ===> %@",date, now);
-        }
-        else {
-            NSLog(@"B %@ ===> %@",now, date);
-        }
-        
-        UILocalNotification *localNotif = [[UILocalNotification alloc]init];
-        if (localNotif != nil) 
-        {
-            //통지시간 
-            localNotif.fireDate = date;
-            localNotif.timeZone = [NSTimeZone defaultTimeZone];
-            
-            //Payload
-            localNotif.alertBody = [NSString stringWithFormat:@"내부통지 %@",date];
-            localNotif.alertAction = @"상세보기";
-            localNotif.soundName = UILocalNotificationDefaultSoundName;
-            localNotif.applicationIconBadgeNumber = 1;
-            
-            //Custom Data
-            NSDictionary *infoDict = [NSDictionary dictionaryWithObject:@"mypage" forKey:@"page"];
-            localNotif.userInfo = infoDict;
-            
-            //Local Notification 등록
-            [[UIApplication sharedApplication] scheduleLocalNotification:localNotif];
-            
-        }
- */
-
-
-    }
-
     return YES;
 }
 
+#pragma mark -
+#pragma mark Push Notification delete
+-(void) application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+}
+
+#pragma mark -
+#pragma mark Local Notification delete
 -(void) application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
 {
-	application.applicationIconBadgeNumber = 0;
-	
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"알림" 
-													message:[NSString stringWithFormat:@"didReceiveLocalNotification %@",notification.alertBody] 
-												   delegate:nil 
-										  cancelButtonTitle:nil 
-										  otherButtonTitles:@"확인",nil];
-	[alert show];
+    // userInfo에서 id를 얻어서 Item을 얻음
+    NSDictionary *infoDict = (NSMutableDictionary*)notification.userInfo;
+    NSNumber *itemId = [infoDict valueForKey:@"id"];
+    Item* item = [dbHelper getItemById:[itemId intValue]];
+    NSLog(@"[%s]id=%d scheduledCount=%d", __FUNCTION__, item.identifier, item.scheduledCount);
 
+    // itemListView를 갱신한다.
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadItemList" object:item];
+
+    // alert view를 띄운다.
+	UIAlertView *alert = [[UIAlertView alloc]
+                          initWithTitle:[NSString stringWithFormat:@"Alarmee %@", NSLocalizedString(@"Schedule", nil)]
+													message:[NSString stringWithFormat:@"%@",item.title]
+												   delegate:nil
+										  cancelButtonTitle:nil
+										  otherButtonTitles:nil];
+	[alert show];
+    
+    UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc]
+                                          initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    
+    indicator.center = CGPointMake(alert.bounds.size.width / 2,
+                                   alert.bounds.size.height - 50);
+    [alert addSubview:indicator];
+    [indicator startAnimating];
+    
+    // hide alert view:
+    [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(performHideNotification:) userInfo:alert repeats:NO];
+}
+
+- (void)performHideNotification:(NSTimer *)timer {
+    UIAlertView  *baseAlert = [timer userInfo];
+    // UIAlertView를 닫는다.
+	[baseAlert dismissWithClickedButtonIndex:0 animated:YES];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
@@ -169,6 +125,7 @@
     /*
      Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
      */
+    application.applicationIconBadgeNumber = 0;
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

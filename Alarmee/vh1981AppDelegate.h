@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "itemsListViewController.h"
-#import "ItemAddViewController.h"
+#import "db_access.h"
+#import "Schedule.h"
 
 @interface vh1981AppDelegate : UIResponder <UIApplicationDelegate> {
+    DBAccessHelper* dbHelper;
     itemsListViewController* _viewController;
     UINavigationController* _navigationController;
 }
@@ -20,6 +22,8 @@
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+
+@property (readonly, nonatomic, retain) DBAccessHelper *dbHelper;
 
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;

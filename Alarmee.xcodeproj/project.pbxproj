@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DD177C5C1535CC6500ABE790 /* ItemAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD177C5B1535CC6500ABE790 /* ItemAddViewController.m */; };
 		DD4210AA15CA1838000E9C03 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = DD4210A915CA1838000E9C03 /* Item.m */; };
 		DD4210B915CAA4BC000E9C03 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DD4210BB15CAA4BC000E9C03 /* Localizable.strings */; };
 		DD53AB5315C8FF5400808CC0 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DD53AB5215C8FF5400808CC0 /* libsqlite3.0.dylib */; };
@@ -15,6 +14,7 @@
 		DD6C171915CF556400F06F34 /* Schedule.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6C171815CF556400F06F34 /* Schedule.m */; };
 		DD6CB0C614FCE847002E4FE0 /* itemsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6CB0C514FCE847002E4FE0 /* itemsListViewController.m */; };
 		DD6CB0CA14FD1C3F002E4FE0 /* itemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6CB0C914FD1C3F002E4FE0 /* itemViewController.m */; };
+		DD7F87E2163F20F90025E0E6 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DD7F87E1163F20F80025E0E6 /* Default-568h@2x.png */; };
 		DD80293B14FA583300B93F21 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD80293A14FA583300B93F21 /* UIKit.framework */; };
 		DD80293D14FA583300B93F21 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD80293C14FA583300B93F21 /* Foundation.framework */; };
 		DD80293F14FA583300B93F21 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD80293E14FA583300B93F21 /* CoreGraphics.framework */; };
@@ -29,6 +29,7 @@
 		DD80295B14FA583300B93F21 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD80294014FA583300B93F21 /* CoreData.framework */; };
 		DD80296314FA583300B93F21 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DD80296114FA583300B93F21 /* InfoPlist.strings */; };
 		DD80296614FA583300B93F21 /* AlarmeeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DD80296514FA583300B93F21 /* AlarmeeTests.m */; };
+		DDD3DB9C15DCA98500E60D8E /* PreferenceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDD3DB9B15DCA98500E60D8E /* PreferenceViewController.m */; };
 		DDF0BF1614FA6AC800DCFF51 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = DDF0BF1514FA6AC800DCFF51 /* Default.png */; };
 /* End PBXBuildFile section */
 
@@ -43,8 +44,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		DD177C5A1535CC6500ABE790 /* ItemAddViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemAddViewController.h; sourceTree = "<group>"; };
-		DD177C5B1535CC6500ABE790 /* ItemAddViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemAddViewController.m; sourceTree = "<group>"; };
 		DD4210A815CA1838000E9C03 /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
 		DD4210A915CA1838000E9C03 /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
 		DD4210B215CA98EB000E9C03 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = /Users/yeonhyigim/workspace/iphone/Alarmee/Alarmee/ko.lproj/InfoPlist.strings; sourceTree = "<absolute>"; };
@@ -60,6 +59,7 @@
 		DD6CB0C514FCE847002E4FE0 /* itemsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = itemsListViewController.m; sourceTree = "<group>"; };
 		DD6CB0C814FD1C3F002E4FE0 /* itemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = itemViewController.h; sourceTree = "<group>"; };
 		DD6CB0C914FD1C3F002E4FE0 /* itemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = itemViewController.m; sourceTree = "<group>"; };
+		DD7F87E1163F20F80025E0E6 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		DD80293614FA583300B93F21 /* Alarmee.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Alarmee.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD80293A14FA583300B93F21 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		DD80293C14FA583300B93F21 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -78,6 +78,8 @@
 		DD80296214FA583300B93F21 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DD80296414FA583300B93F21 /* AlarmeeTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlarmeeTests.h; sourceTree = "<group>"; };
 		DD80296514FA583300B93F21 /* AlarmeeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlarmeeTests.m; sourceTree = "<group>"; };
+		DDD3DB9A15DCA98500E60D8E /* PreferenceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferenceViewController.h; sourceTree = "<group>"; };
+		DDD3DB9B15DCA98500E60D8E /* PreferenceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferenceViewController.m; sourceTree = "<group>"; };
 		DDF0BF1514FA6AC800DCFF51 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -124,6 +126,7 @@
 				DD53AB5615C918DD00808CC0 /* db_access.m */,
 			);
 			name = Database;
+			path = Alarmee;
 			sourceTree = "<group>";
 		};
 		DD69F2DB15CD004E00729B91 /* Schedule */ = {
@@ -138,8 +141,10 @@
 		DD80292B14FA583300B93F21 = {
 			isa = PBXGroup;
 			children = (
+				DD7F87E1163F20F80025E0E6 /* Default-568h@2x.png */,
 				DD69F2DB15CD004E00729B91 /* Schedule */,
 				DD433E0F15C6671800A56759 /* DataModel */,
+				DD53AB5415C9187200808CC0 /* Database */,
 				DD80294214FA583300B93F21 /* Alarmee */,
 				DD80295E14FA583300B93F21 /* AlarmeeTests */,
 				DD80293914FA583300B93F21 /* Frameworks */,
@@ -172,15 +177,14 @@
 		DD80294214FA583300B93F21 /* Alarmee */ = {
 			isa = PBXGroup;
 			children = (
-				DD53AB5415C9187200808CC0 /* Database */,
-				DD177C5A1535CC6500ABE790 /* ItemAddViewController.h */,
-				DD177C5B1535CC6500ABE790 /* ItemAddViewController.m */,
 				DD80294B14FA583300B93F21 /* vh1981AppDelegate.h */,
 				DD80294C14FA583300B93F21 /* vh1981AppDelegate.m */,
 				DD6CB0C414FCE847002E4FE0 /* itemsListViewController.h */,
 				DD6CB0C514FCE847002E4FE0 /* itemsListViewController.m */,
 				DD6CB0C814FD1C3F002E4FE0 /* itemViewController.h */,
 				DD6CB0C914FD1C3F002E4FE0 /* itemViewController.m */,
+				DDD3DB9A15DCA98500E60D8E /* PreferenceViewController.h */,
+				DDD3DB9B15DCA98500E60D8E /* PreferenceViewController.m */,
 				DD80297314FA695100B93F21 /* Resources */,
 				DD80294E14FA583300B93F21 /* Alarmee.xcdatamodeld */,
 				DD80294314FA583300B93F21 /* Supporting Files */,
@@ -273,7 +277,7 @@
 		DD80292D14FA583300B93F21 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0430;
+				LastUpgradeCheck = 0450;
 				ORGANIZATIONNAME = "Powerwave Interactive";
 			};
 			buildConfigurationList = DD80293014FA583300B93F21 /* Build configuration list for PBXProject "Alarmee" */;
@@ -303,6 +307,7 @@
 				DD80294714FA583300B93F21 /* InfoPlist.strings in Resources */,
 				DDF0BF1614FA6AC800DCFF51 /* Default.png in Resources */,
 				DD4210B915CAA4BC000E9C03 /* Localizable.strings in Resources */,
+				DD7F87E2163F20F90025E0E6 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -342,10 +347,10 @@
 				DD80295014FA583300B93F21 /* Alarmee.xcdatamodeld in Sources */,
 				DD6CB0C614FCE847002E4FE0 /* itemsListViewController.m in Sources */,
 				DD6CB0CA14FD1C3F002E4FE0 /* itemViewController.m in Sources */,
-				DD177C5C1535CC6500ABE790 /* ItemAddViewController.m in Sources */,
 				DD53AB5715C918DD00808CC0 /* db_access.m in Sources */,
 				DD4210AA15CA1838000E9C03 /* Item.m in Sources */,
 				DD6C171915CF556400F06F34 /* Schedule.m in Sources */,
+				DDD3DB9C15DCA98500E60D8E /* PreferenceViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -418,7 +423,7 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -436,7 +441,7 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -449,7 +454,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Alarmee/Alarmee-Prefix.pch";
 				INFOPLIST_FILE = "Alarmee/Alarmee-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -460,7 +467,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Alarmee/Alarmee-Prefix.pch";
 				INFOPLIST_FILE = "Alarmee/Alarmee-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -9,12 +9,12 @@
 #import "vh1981AppDelegate.h"
 #import "itemsListViewController.h"
 #import "itemViewController.h"
-#import "ItemAddViewController.h"
 #import "Item.h"
 #import "db_access.h"
 #import "Schedule.h"
 
 @implementation itemsListViewController
+@synthesize _itemListTableView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -41,11 +41,12 @@
 {
     [self loadData];
     
-    NSString* str = [NSString stringWithFormat:@"%d Items", [_itemsArray count]];
+    dbStateId = 0;
+    
+    NSString* str = [NSString stringWithString:NSLocalizedString(@"List", nil)];
     [self setTitle:str];
     
     _itemListTableView = [[UITableView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame] style:UITableViewStylePlain];
-    
     _itemListTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
     _itemListTableView.delegate = self;
     _itemListTableView.dataSource = self;
@@ -54,13 +55,12 @@
     self.view = _itemListTableView;
     
     _itemViewController = [[itemViewController alloc]init];
-    _itemAddViewController = [[ItemAddViewController alloc]init];
-    
+    _preferenceViewController = [[PreferenceViewController alloc]init];
     
     // navigationController 상단 좌측버튼 구성(prev)
     {
         UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]
-                                     initWithTitle:@"Add"
+                                     initWithTitle:NSLocalizedString(@"Add", nil)
                                      style:UIBarButtonItemStyleDone target:self action:@selector(addEntityViewOpen)];
         [self.navigationItem setLeftBarButtonItem:leftItem];
     }
@@ -68,36 +68,55 @@
     // navigationController 상단 우측 버튼 구성(next)
     {
         UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]
-                                      initWithTitle:@"Edit" style:UIBarButtonItemStyleDone target:self action:@selector(editEntityViewOpen)];
+                                      initWithTitle:NSLocalizedString(@"Preference", nil)
+                                      style:UIBarButtonItemStyleDone target:self action:@selector(preferenceViewOpen)];
         [self.navigationItem setRightBarButtonItem:rightItem];
     }
-}
-
-- (BOOL)isViewLoaded {
-    [self loadData];
-    return [super isViewLoaded];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(update:) name:@"reloadItemList" object:nil];
 }
 
 -(void)loadData {
-    _itemsArray = [self getAllItems];
-    [_itemListTableView reloadData];
+    DBAccessHelper *dbHelper = ((vh1981AppDelegate *)[[UIApplication sharedApplication] delegate]).dbHelper;
+
+    _itemsArray = [dbHelper getAllItems];
     
-    Schedule* sched = [[Schedule alloc]init];
-    sched._items = _itemsArray;
-    [sched schedule];
+    // badge number를 갱신한다.
+    int badgeNumber = 0;
+    for (Item* item in _itemsArray) {
+        if (item.scheduledCount > 0) {
+            badgeNumber++;
+        }
+    }
+    [UIApplication sharedApplication].applicationIconBadgeNumber = badgeNumber;
+    
+    // item 목록 갱신.
+    [_itemListTableView reloadData];
+   
+    /*
+    // db 상태가 변경됬을때만 local notification을 갱신한다.
+    if (dbStateId != dbHelper.stateId) {
+        [Schedule scheduleAll:_itemsArray];
+        dbStateId = dbHelper.stateId;
+    }
+     */
 }
 
 - (void)addEntityViewOpen
 {
-//    [self.navigationController pushViewController:_itemAddViewController animated:YES];
     [_itemViewController loadData:[[Item alloc]init]];
     [_itemViewController setOperatingMode:ItemViewMode_New];
     [self.navigationController pushViewController:_itemViewController animated:YES];
 
 }
 
-- (void)editEntityViewOpen
+- (void)preferenceViewOpen
 {
+    [UIView beginAnimations:@"animation" context:nil];
+    [UIView setAnimationDuration: 0.7];
+    [self.navigationController pushViewController: _preferenceViewController animated:NO]; 
+    [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:self.navigationController.view cache:NO]; 
+    [UIView commitAnimations];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -140,6 +159,9 @@
 }
 */
 
+#pragma mark -
+#pragma mark Table View Delegate Methods
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *MyIdentifier = @"MyIdentifier_VH1981";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
@@ -150,86 +172,77 @@
     if (_itemsArray != nil) {
         Item *item = [_itemsArray objectAtIndex:indexPath.row];
         NSString* string = item.title;
-        cell.textLabel.text = string;
+        [cell.textLabel setText:string];
+        int state = [item getScheduledStatus];
+        
+        if (state == SCHED_DONE) {
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        }
+        else {
+            cell.accessoryType = UITableViewCellAccessoryNone;
+        }
+        
+        if (item.status == STAT_ACTIVE) {
+            [cell.textLabel setTextColor:[UIColor blackColor]];
+        }
+        else {            
+            [cell.textLabel setTextColor:[UIColor grayColor]];
+        }
+        
+        NSLog(@"row[%02d] state=%s", indexPath.row, state==SCHED_DONE ? "SCHED_DONE" : "SCHED_WAITING");
     }
     return cell;
 }
 
-#pragma mark -
-#pragma mark Table View Delegate Methods
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // make new view & push
+    
+    Item* item = [_itemsArray objectAtIndex:indexPath.row];
+    DBAccessHelper *dbHelper = ((vh1981AppDelegate *)[[UIApplication sharedApplication] delegate]).dbHelper;
+    
+    if ([item getScheduledStatus] == SCHED_DONE) { // 다음 스케줄 시간을 업데이트 해야 한다.
+        [Schedule schedule:item];
+        [dbHelper addNewItem:item isExists:1];
+    }
+    
+    // itemView로 이동한다.
     [_itemViewController loadData:[_itemsArray objectAtIndex:indexPath.row]];
     [_itemViewController setOperatingMode:ItemViewMode_Apply];
     [self.navigationController pushViewController:_itemViewController animated:YES];
 }
 
--(NSMutableArray*)getAllItems
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSMutableArray *itemsArray = nil;   
-    
-    // open db    
-    sqlite3 *database = NULL;
-    DBAccessHelper *dbHelper = [[DBAccessHelper alloc] init];
-    NSString *filePath = [dbHelper getDBFilePath];
-    if (sqlite3_open([filePath UTF8String], &database) != SQLITE_OK) {
-        NSLog(@"[%s]%d db open fail!", __func__,__LINE__);
-    }
-    else {            
-        sqlite3_stmt *selectStatement;            
-        NSMutableString *selectSql = [[NSMutableString alloc]initWithFormat:@"SELECT * FROM %s", DB_TABLENAME];
-        //NSLog(@"selectSql = %s", [selectSql UTF8String]);
-        if (sqlite3_prepare_v2(database, [selectSql UTF8String], -1, &selectStatement, NULL) == SQLITE_OK) {
-            
-            itemsArray = [[NSMutableArray alloc]init];
-            
-            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-            [dateFormatter setDateFormat:@"yyyyMMddHHmmss"]; // 시간이 이런 형식으로 저장되어 있다.
-            NSString* timeString;
-            NSDate* date;
-            
-            // while문을 돌면서 각 레코드의 데이터를 받아서 출력한다.
-            while (sqlite3_step(selectStatement)==SQLITE_ROW) {
-                
-                Item* item = [[Item alloc]init];
-                
-                item.identifier = sqlite3_column_int(selectStatement, 0);
-                item.title = [NSString stringWithUTF8String:(char *)sqlite3_column_text(selectStatement, 1) ];
-                item.todo = [NSString stringWithUTF8String:(char *)sqlite3_column_text(selectStatement, 2) ];
-                
-                timeString = [NSString stringWithUTF8String:(char *)sqlite3_column_text(selectStatement, 3) ];
-                date = [Item str2Date:timeString];
-                item.adddate = date;
-                
-                timeString = [NSString stringWithUTF8String:(char *)sqlite3_column_text(selectStatement, 4) ];
-                date = [Item str2Date:timeString];
-                item.duedate = date;
-                
-                item.repeat = sqlite3_column_int(selectStatement, 5);
-                
-                [dateFormatter setDateFormat:@"yyyy:MM:dd HH:mm:ss"];
-                /*
-                NSLog(@"Items : id=%d title=%@ todo=%@ adddate=%@ duedate=%@ repeat=%d",
-                      item.id, item.title, item.todo, 
-                      [dateFormatter stringFromDate:item.adddate],
-                      [dateFormatter stringFromDate:item.duedate],
-                      item.repeat);
-                 */
-                
-                [itemsArray addObject:item];
-            }
+    return UITableViewCellEditingStyleDelete;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{ 
+    [tableView beginUpdates];    
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        // Do whatever data deletion you need to do...
+        // Delete the row from the data source
+
+        DBAccessHelper *dbHelper = ((vh1981AppDelegate *)[[UIApplication sharedApplication] delegate]).dbHelper;
+        if ([dbHelper deleteItem:[_itemsArray objectAtIndex:indexPath.row]] != TRUE) {
+            NSLog(@"[%s]%d Error!", __func__,__LINE__);
         }
-        else {
-            NSLog(@"[%s]%d error!", __FUNCTION__, __LINE__);
-        }
-    }
-    
-    if (database != NULL) {
-        //db close
-        sqlite3_close(database);
-        database = NULL;
-    }    
-    return itemsArray;    
+        [_itemsArray removeObjectAtIndex:indexPath.row];
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:YES];      
+    }       
+    [tableView endUpdates];
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+- (void)update:(NSNotification *)notification
+{
+    NSLog(@"[%s]%d item notification", __FUNCTION__,__LINE__);
+//    DBAccessHelper *dbHelper = ((vh1981AppDelegate *)[[UIApplication sharedApplication] delegate]).dbHelper;
+//    _itemsArray = [dbHelper getAllItems];
+    [_itemListTableView reloadData];
 }
 
 @end

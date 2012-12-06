@@ -17,7 +17,7 @@ static NSString* _reuseId = @"DFDADFDSFASDF";
     UITableView *_detailTableView;
     Item* _item;
     
-    enum {ROW_TITLE = 0, ROW_TODO, ROW_DUEDATE, ROW_REPEAT, ROW_MAX};
+    enum {ROW_TITLE = 0, ROW_TODO, ROW_DUEDATE, ROW_REPEAT, ROW_JOB_DONE_OR_ADD_NEW, ROW_MAX};
     
     UIView *inputAccView;
     UIButton *btnDone;

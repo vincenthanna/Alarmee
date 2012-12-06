@@ -9,15 +9,19 @@
     
 #import <UIKit/UIKit.h>
 #import "itemViewController.h"
-#import "ItemAddViewController.h"
+#import "PreferenceViewController.h"
 
 /* 메인 창, 아이템들을 listView로 보여준다. */
 @interface itemsListViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
     UITableView* _itemListTableView;
     itemViewController* _itemViewController;
-    ItemAddViewController *_itemAddViewController;
-
+    PreferenceViewController* _preferenceViewController;
     NSMutableArray *_itemsArray;
+    int dbStateId;
 }
+
+@property (nonatomic,retain) UITableView* _itemListTableView;
+
+-(void)update:(NSNotification *)notification;
 
 @end

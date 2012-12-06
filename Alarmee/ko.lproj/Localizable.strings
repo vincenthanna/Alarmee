@@ -16,3 +16,18 @@
 
 "ToDoTypeHere" = "여기에 할 일을 작성합니다.";
 "Add" = "추가";
+"Preference" = "설정";
+"List" = "목록";
+"Clear All" = "모두 지우기";
+"Clear all?" = "모두 지우시겠습니까?";
+
+"Previous" = "이전";
+"Next" = "다음";
+"Done" = "완료";
+"PleaseWriteTitle" = "제목을 써 주세요.";
+"Error" = "오류";
+"OK" = "확인";
+"Schedule" = "스케줄";
+"Saving..." = "저장중...";
+"SaveError" = "저장을 실패하였습니다.";
+"JOB_DONE" = "할일을 끝마쳤습니다.";

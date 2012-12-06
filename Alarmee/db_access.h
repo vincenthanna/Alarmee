@@ -21,9 +21,10 @@ extern const char *db_create_str_template;
 
 @interface DBAccessHelper : NSObject
 {
-    
+    int stateId;
 }
 
+@property (readonly, nonatomic) int stateId;
 
 // functions :
 - (NSString*)getDBFilePath;
@@ -31,6 +32,10 @@ extern const char *db_create_str_template;
 - (int)getNextId;
 
 -(BOOL)addNewItem:(Item*)item isExists:(int)isExists;
+-(BOOL)deleteItem:(Item*)item;
+-(Item*)getItemById:(int)identifier;
+-(BOOL)changeItemStatus:(Item*)item status:(int)stat;
+-(NSMutableArray*)getAllItems;
 
 - (void)makeTestData;
 
